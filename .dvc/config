@@ -1,0 +1,4 @@
+[core]
+    remote = item_1a_remote_data
+['remote "item_1a_remote_data"']
+    url = ../../sec-project-remote-store
