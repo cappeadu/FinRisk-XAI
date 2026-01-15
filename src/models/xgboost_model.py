@@ -56,6 +56,7 @@ class XGBoostModel:
                 scale_pos_weight=scale_pos_weight,
                 eval_metric="logloss",
                 use_label_encoder=False,
+                seed=RSEED,
             )
             model.fit(X_train_vec, y_train[:, i])
             self.models[class_name] = model

@@ -50,7 +50,9 @@ class LogisticBaseline:
         # Train one model per class
         for i, class_name in enumerate(self.mlb.classes_):
             print(f"Training {class_name}...")
-            model = LogisticRegression(max_iter=1000, class_weight="balanced", C=1.0)
+            model = LogisticRegression(
+                max_iter=1000, class_weight="balanced", C=1.0, random_state=RSEED
+            )
             model.fit(X_train_vec, y_train[:, i])
             self.models[class_name] = model
 
