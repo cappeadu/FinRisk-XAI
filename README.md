@@ -1,4 +1,4 @@
-# Evaluating XAI Methods for Financial Compliance: A Prototype Framework
+# Evaluating Explainable AI Methods for Financial Risk Classification: A Prototype Framework
 
 ![Status](https://img.shields.io/badge/status-prototype-orange)
 ![Python](https://img.shields.io/badge/python-3.11-blue)
@@ -6,7 +6,10 @@
 
 ## 🎯 Overview
 
-This repository contains a **prototype framework** for systematically evaluating explainability methods in financial compliance ML. This preliminary work identifies a critical research gap and proposes a methodology for comprehensive research.
+This repository contains a research prototype for evaluating explainable AI (XAI) methods applied to **financial risk classification** from textual disclosures (SEC Item 1A risk factors). The project focuses on comparing explanation methods across **faithfulness**, **sparsity**, and **computational efficiency**, with an emphasis on regulatory and decision-making contexts. This preliminary work identifies a critical research gap and proposes a methodology for comprehensive research.
+
+This work is intended as a research instrument, not a production system.
+
 
 **Current Status:** Prototype with quantitative evaluation on 250+ documents  
 **Future Direction:** Large-scale study with stakeholder validation (1,200+ documents, 20-30 practitioners)
@@ -14,6 +17,9 @@ This repository contains a **prototype framework** for systematically evaluating
 ---
 
 ## 🔬 Research Motivation
+Explainable AI is widely promoted for high-stakes domains such as finance, yet there is limited empirical guidance on **which explanation methods are appropriate for which stakeholders**. In financial risk analysis, explanations must balance technical accuracy with interpretability and regulatory usability.
+
+This project investigates how different XAI methods behave when applied to the same risk classification task, highlighting trade-offs that are often obscured in benchmark-driven evaluations.
 
 While XAI methods are increasingly used in compliance/finance, little is known about:
 - Which methods practitioners find most useful
@@ -27,6 +33,36 @@ While XAI methods are increasingly used in compliance/finance, little is known a
 4. ⏳ Foundation for comprehensive academic research
 
 **Key Finding:** LogReg + SHAP achieves highest faithfulness and is 65x faster BUT about 4.8x less concise than LogReg + LIME. These tradeoffs matter for practitioners reviewing hundreds of documents daily—yet we lack empirical evidence on user preferences.
+
+---
+
+## 🚀 Proposed Academic Contributions
+
+### Research Questions
+
+**RQ1:** Do quantitative XAI metrics (faithfulness, efficiency, sparsity) predict which methods finance/compliance practitioners prefer and trust?
+
+**RQ2:** What explanation properties (domain terminology, visual format, level of detail) most influence trust and decision quality?
+
+**RQ3:** How do individual differences (expertise level, time pressure, task type) moderate explanation preferences?
+
+**RQ4:** Can we develop evidence-based design principles for XAI in regulated domains?
+
+### Expected Outputs
+
+**Empirical:**
+- First systematic evaluation of XAI metrics vs user preferences in finance/compliance
+- Understanding of practitioner tradeoff preferences
+- Evidence on domain-specific vs universal XAI properties
+
+**Methodological:**
+- Validated framework for stakeholder-centered XAI evaluation
+- Standardized protocols for user studies in regulated domains
+
+**Practical:**
+- Design principles for compliance-focused explanations
+- Guidance for organizations deploying XAI
+- Reduced gap between XAI research and practice
 
 ---
 
@@ -54,6 +90,8 @@ While XAI methods are increasingly used in compliance/finance, little is known a
 
 ## 🤖 Models Implemented
 
+Text processing and vectorization, after which I trained the following classifiers:
+
 | Model | Architecture | F1 (micro) | F1 (macro) | f1_samples |
 |-------|-------------|-----------|-----------|----------------|
 | Logistic Regression + TF-IDF | Linear (One-vs-Rest) | 0.82 | 0.80 | 0.76 | 
@@ -61,7 +99,7 @@ While XAI methods are increasingly used in compliance/finance, little is known a
 
 **Model Selection Rationale:**
 - **LogReg**: Baseline, inherently interpretable, fast
-- **XGBoost**: State-of-practice for compliance, balances performance and complexity
+- **XGBoost**: State-of-practice for finance/compliance, balances performance and complexity
 
 *(FinBERT implementation could be adopted for full study)*
 
@@ -69,7 +107,7 @@ While XAI methods are increasingly used in compliance/finance, little is known a
 
 ## 🔍 XAI Methods Evaluated
 
-I implemented two explanation methods representing different paradigms:
+I implemented two explanation methods under consistent experimental conditions to enable comparison:
 
 ### 1. LIME (Local Interpretable Model-agnostic Explanations)
 - **Approach:** Local linear approximation via perturbed samples
@@ -113,7 +151,7 @@ I implemented two explanation methods representing different paradigms:
 
 **Interpretation:** LogReg + LIME shows highest sufficiency (top features alone work well). XGBoost methods show higher comprehensiveness (removing features impacts predictions more). This suggests different models produce qualitatively different explanations.
 
-#### Finding 2: Dramatic Efficiency Differences
+#### Finding 2: Efficiency Differences
 
 ![Efficiency Comparison](results/figures/efficiency_comparison.png)
 
@@ -123,7 +161,7 @@ I implemented two explanation methods representing different paradigms:
 - LogReg + LIME: 1.16s (~60x slower)
 - XGBoost + LIME: 1.86s (~90x slower)
 
-**Implication:** For a compliance officer reviewing 500 documents/day:
+**Implication:** For a finance/compliance officer reviewing 500 documents/day:
 - SHAP: ~9 seconds total
 - LIME: ~9.5 minutes total
 
@@ -151,37 +189,7 @@ This 63x difference is operationally significant, yet faithfulness metrics don't
 - XGBoost + LIME: Lower sufficiency, slow, **extremely sparse**
 - XGBoost + SHAP: Lower sufficiency, moderate speed, dense
 
-**Critical Gap:** Which tradeoff do practitioners prefer? Do they value speed over faithfulness? Is extreme sparsity (1-2 features) too little information? Current XAI research cannot answer these questions without user studies.
-
----
-
-## 🎨 Example Explanations
-
-### Document Sample
-```
-"Intense competition in our industry could result in pricing pressure and 
-loss of market share, which may adversely affect our revenues and profitability."
-```
-
-**True Label:** Market Risk  
-**Predicted (LogReg):** Market Risk (0.55 confidence) ✅
-
-**LIME Explanation (top-5 features):**
-1. market (weight: +0.05)  
-2. affect (weight: +0.015)
-3. intense (weight: -0.014)
-4. industry (weight: +0.013)
-5. adversely (weight: +0.012)
-
-**SHAP Explanation (top-5 of 30+ highlighted):**
-1. market (value: +0.0812)
-2. share (value: +0.043)
-3. adversely affect (value: +0.0394)
-4. adversely (value: +0.0349)
-5. affect (value: +0.0338)
-
-
-**Observation:** Both methods identify relevant terms and provide much more detail with regards to adjectives. Is this helpful or overwhelming? Do these adjectives matter more than relevant/domain terms? User validation needed.
+**CRITICAL GAP:** Which tradeoff do practitioners prefer? Do they value speed over faithfulness? Is extreme sparsity (1-2 features) too little information? Current XAI research cannot answer these questions **without user studies**.
 
 ---
 
@@ -207,7 +215,7 @@ These preliminary findings suggest **potential misalignment between technical XA
 4. **Develop design principles** for stakeholder-centered XAI
 
 **Expected Contributions:**
-- First empirical evidence on metrics-utility alignment in compliance
+- First empirical evidence on metrics-utility alignment in finance/compliance
 - Understanding of practitioner preferences across faithfulness-efficiency-sparsity tradeoffs
 - Design principles for effective XAI in regulated domains
 - Framework implementing evidence-based recommendations
@@ -266,12 +274,6 @@ python -m src.evaluation.run_all_evaluations #runs all explanations and creates 
 
 # 4. Create visualizations
 python visualization/create_figures.py
-```
-
-### Quick Demo (Pre-labeled data)
-```bash
-# Use included sample data
-python demo/run_demo.py
 ```
 
 ---
@@ -347,10 +349,12 @@ FinRisk-XAI/
 ### Current Limitations
 
 1. **Small dataset (N=250+):** Proof-of-concept only; not generalizable
-2. **No user validation:** Quantitative metrics only; cannot assess practitioner preferences
-3. **Limited model diversity:** 2 models; FinBERT implementation pending
-4. **Single domain:** Financial compliance only
-5. **Binary XAI comparison:** Only 2-3 methods per model
+2. **No user validation:** Quantitative metrics only; cannot assess practitioner preferences yet
+3. **Limited model diversity:** 2 models
+4. **Single domain:** Financial risk/compliance only
+5. **Focus on English-language financial disclosures**
+
+These limitations are intentional and define the scope of future work.
 
 ### Planned Extensions (Academic Research)
 
@@ -359,7 +363,7 @@ FinRisk-XAI/
    - Company sizes (small-cap, mid-cap, large-cap)
    - Years (2020-2024 for temporal patterns)
 
-2. **User study with 20-30 compliance professionals:**
+2. **User study with 20-30 finance/compliance professionals:**
    - Preference ratings (understandability, trust, actionability)
    - Decision tasks (flag true vs false positives)
    - Think-aloud protocols (qualitative insights)
@@ -380,36 +384,6 @@ FinRisk-XAI/
    - Automated method comparison
    - Domain-specific templates
    - User validation protocols
-
----
-
-## 🚀 Proposed Academic Contributions
-
-### Research Questions
-
-**RQ1:** Do quantitative XAI metrics (faithfulness, efficiency, sparsity) predict which methods compliance practitioners prefer?
-
-**RQ2:** What explanation properties (domain terminology, visual format, level of detail) most influence trust and decision quality?
-
-**RQ3:** How do individual differences (expertise level, time pressure, task type) moderate explanation preferences?
-
-**RQ4:** Can we develop evidence-based design principles for XAI in regulated domains?
-
-### Expected Outputs
-
-**Empirical:**
-- First systematic evaluation of XAI metrics vs user preferences in compliance
-- Understanding of practitioner tradeoff preferences
-- Evidence on domain-specific vs universal XAI properties
-
-**Methodological:**
-- Validated framework for stakeholder-centered XAI evaluation
-- Standardized protocols for user studies in regulated domains
-
-**Practical:**
-- Design principles for compliance-focused explanations
-- Guidance for organizations deploying XAI
-- Reduced gap between XAI research and practice
 
 ---
 
@@ -442,7 +416,7 @@ This work demonstrated XAI application in education but lacked stakeholder valid
 If you reference this prototype, please cite:
 ```bibtex
 @misc{appeadu2026FinRisk-XAI,
-  title={Evaluating XAI Methods for Financial Compliance: A Prototype Framework},
+  title={Evaluating Explainable AI Methods for Financial Risk Classification: A Prototype Framework},
   author={Appeadu, Clement},
   year={2026},
   note={Preliminary research prototype},
