@@ -70,9 +70,9 @@ if __name__ == "__main__":
     explainer = LIMEExplainer(model, model_data["mlb"].classes_)
 
     # Test
-    test_text = (
-        "Market volatility and economic uncertainty may adversely affect our business."
-    )
+    test_text = "intense competition in our industry could result in pricing pressure and \
+        loss of market share, which may adversely affect our revenues and profitability."
+    print(f"{test_text}\n")
     explanation = explainer.explain(test_text)
 
     print("LIME Explanation:")
@@ -81,3 +81,4 @@ if __name__ == "__main__":
         top_words = explainer.get_top_words(explanation, class_name, k=6)
         for word, weight in top_words:
             print(f"  {word}: {weight:.3f}")
+    print(model.predict_proba([test_text]))

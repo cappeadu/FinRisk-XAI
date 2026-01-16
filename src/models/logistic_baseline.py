@@ -19,6 +19,7 @@ class LogisticBaseline:
             max_features=max_features,
             ngram_range=(1, 2),
             min_df=2,
+            stop_words="english",
         )
         self.mlb = MultiLabelBinarizer()
         self.models = {}  # One model per class

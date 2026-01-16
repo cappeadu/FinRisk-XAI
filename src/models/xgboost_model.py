@@ -19,7 +19,7 @@ class XGBoostModel:
             max_features=max_features,
             ngram_range=(1, 3),  # Up to trigrams
             min_df=2,
-            # stop_words='english'
+            stop_words="english",
         )
         self.mlb = MultiLabelBinarizer()
         self.models = {}

@@ -78,7 +78,9 @@ if __name__ == "__main__":
 
     # Load model
     artifact_folder = Path(__name__).resolve().parent
-    with open(artifact_folder / "results/model_artifacts/xgboost.pkl", "rb") as f:
+    with open(
+        artifact_folder / "results/model_artifacts/logistic_baseline.pkl", "rb"
+    ) as f:
         model_data = pickle.load(f)
 
     class ModelWrapper:
@@ -102,15 +104,20 @@ if __name__ == "__main__":
     df = pd.read_csv(artifact_folder / "data/risk_data.csv")
     X_train = df["paragraph_cleaned"].values[:100]
 
-    explainer = SHAPExplainer(model, model_type="xgboost")
+    explainer = SHAPExplainer(model, model_type="logistic")
     explainer.fit(X_train, max_samples=50)
 
     # test
-    test_text = df["paragraph"].iloc[-1]
+    # test_text = df["paragraph"].iloc[-1]
+    test_text = "intense competition in our industry could result in pricing pressure and \
+        loss of market share, which may adversely affect our revenues and profitability."
 
-    explanation = explainer.explain(test_text, class_name="Legal/Regulatory Risk")
+    print(f"{test_text}\n")
+    explanation = explainer.explain(test_text, class_name="Market Risk")
 
     print("\n")
     print("SHAP Explanation:")
     for word, weight in explanation[:10]:
         print(f"  {word}: {weight:.4f}")
+
+    print(model.predict_proba([test_text]))

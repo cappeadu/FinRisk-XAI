@@ -1,94 +1,94 @@
 {
   "logistic_lime": {
     "faithfulness": {
-      "sufficiency_mean": 0.9048261911316676,
-      "comprehensiveness_mean": 0.044769196418256524,
-      "sufficiency_std": 0.10513414689793994,
-      "comprehensiveness_std": 0.021150811270725937,
+      "sufficiency_mean": 0.9067723064533577,
+      "comprehensiveness_mean": 0.044959312683292056,
+      "sufficiency_std": 0.09797011079280339,
+      "comprehensiveness_std": 0.020104121311861484,
       "n_samples": 49
     },
     "efficiency": {
       "method": "LIME",
-      "mean_time": 1.1699231206154337,
-      "median_time": 0.9724814891815186,
-      "std_time": 0.7473578119804506,
-      "min_time": 0.1866443157196045,
-      "max_time": 3.0716934204101562,
+      "mean_time": 1.1604764315546776,
+      "median_time": 1.0692198276519775,
+      "std_time": 0.6996586017024653,
+      "min_time": 0.30211734771728516,
+      "max_time": 3.1521451473236084,
       "success_rate": 1.0
     },
     "sparsity": {
-      "mean_significant_features": 6.448979591836735,
-      "mean_sparsity_ratio": 0.6448979591836734,
-      "std_sparsity_ratio": 0.2259322857648661
+      "mean_significant_features": 6.36734693877551,
+      "mean_sparsity_ratio": 0.636734693877551,
+      "std_sparsity_ratio": 0.23447194475665425
     }
   },
   "logistic_shap": {
     "faithfulness": {
-      "sufficiency_mean": 0.8716718249599351,
-      "comprehensiveness_mean": 0.04382852866238073,
-      "sufficiency_std": 0.16188899221219047,
-      "comprehensiveness_std": 0.023179927290138614,
+      "sufficiency_mean": 0.8667614131525119,
+      "comprehensiveness_mean": 0.043852406636415577,
+      "sufficiency_std": 0.16490367163626882,
+      "comprehensiveness_std": 0.022914743088232655,
       "n_samples": 49
     },
     "efficiency": {
       "method": "SHAP",
-      "mean_time": 0.018108942070785835,
-      "median_time": 0.015652179718017578,
-      "std_time": 0.01335585112821649,
-      "min_time": 0.0,
-      "max_time": 0.062230825424194336,
+      "mean_time": 0.01886419860684142,
+      "median_time": 0.015641450881958008,
+      "std_time": 0.012655113384298547,
+      "min_time": 0.0009953975677490234,
+      "max_time": 0.05944514274597168,
       "success_rate": 1.0
     },
     "sparsity": {
-      "mean_significant_features": 30.428571428571427,
-      "mean_sparsity_ratio": 0.09912218276841919,
-      "std_sparsity_ratio": 0.023798078422112155
+      "mean_significant_features": 30.448979591836736,
+      "mean_sparsity_ratio": 0.1000446135253074,
+      "std_sparsity_ratio": 0.02480895538643689
     }
   },
   "xgboost_lime": {
     "faithfulness": {
-      "sufficiency_mean": 0.5287101492721764,
-      "comprehensiveness_mean": 0.1429675187903345,
-      "sufficiency_std": 0.28072635006790936,
-      "comprehensiveness_std": 0.09534451963671585,
+      "sufficiency_mean": 0.5236094085496424,
+      "comprehensiveness_mean": 0.1277749880153208,
+      "sufficiency_std": 0.28973735333283024,
+      "comprehensiveness_std": 0.09696874919297524,
       "n_samples": 49
     },
     "efficiency": {
       "method": "LIME",
-      "mean_time": 1.7254349747482611,
-      "median_time": 1.5504560470581055,
-      "std_time": 0.9612897794732229,
-      "min_time": 0.5144820213317871,
-      "max_time": 4.420109748840332,
+      "mean_time": 1.8582771894883137,
+      "median_time": 1.5473597049713135,
+      "std_time": 0.9874223713423562,
+      "min_time": 0.41602253913879395,
+      "max_time": 3.948572874069214,
       "success_rate": 1.0
     },
     "sparsity": {
-      "mean_significant_features": 1.2244897959183674,
-      "mean_sparsity_ratio": 0.12244897959183673,
-      "std_sparsity_ratio": 0.23409862401189993
+      "mean_significant_features": 1.2448979591836735,
+      "mean_sparsity_ratio": 0.12448979591836734,
+      "std_sparsity_ratio": 0.23519910127977847
     }
   },
   "xgboost_shap": {
     "faithfulness": {
-      "sufficiency_mean": 0.47836075750804175,
-      "comprehensiveness_mean": 0.1544117627383017,
-      "sufficiency_std": 0.2760044565817179,
-      "comprehensiveness_std": 0.07742713722607145,
+      "sufficiency_mean": 0.4887061866326472,
+      "comprehensiveness_mean": 0.13757315606188367,
+      "sufficiency_std": 0.24658077835530245,
+      "comprehensiveness_std": 0.06859136879170641,
       "n_samples": 49
     },
     "efficiency": {
       "method": "SHAP",
-      "mean_time": 0.2104447131254235,
-      "median_time": 0.22835659980773926,
-      "std_time": 0.0780403095845412,
-      "min_time": 0.0798330307006836,
-      "max_time": 0.4584367275238037,
+      "mean_time": 0.2443404976202517,
+      "median_time": 0.2634716033935547,
+      "std_time": 0.08664920035281327,
+      "min_time": 0.08182334899902344,
+      "max_time": 0.4586803913116455,
       "success_rate": 1.0
     },
     "sparsity": {
-      "mean_significant_features": 43.40816326530612,
-      "mean_sparsity_ratio": 0.7508093333262784,
-      "std_sparsity_ratio": 0.05454007639761247
+      "mean_significant_features": 43.61224489795919,
+      "mean_sparsity_ratio": 0.7584585263619672,
+      "std_sparsity_ratio": 0.057235888648252985
     }
   }
 }
