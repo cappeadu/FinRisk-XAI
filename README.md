@@ -101,8 +101,6 @@ Text processing and vectorization, after which I trained the following classifie
 - **LogReg**: Baseline, inherently interpretable, fast
 - **XGBoost**: State-of-practice for finance/compliance, balances performance and complexity
 
-*(FinBERT implementation could be adopted for full study)*
-
 ---
 
 ## 🔍 XAI Methods Evaluated
