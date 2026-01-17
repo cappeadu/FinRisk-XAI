@@ -6,10 +6,17 @@
 
 ## 🎯 Overview
 
-This repository contains a research prototype for evaluating explainable AI (XAI) methods applied to **financial risk classification** from textual disclosures (SEC Item 1A risk factors). The project focuses on comparing explanation methods across **faithfulness**, **sparsity**, and **computational efficiency**, with an emphasis on regulatory and decision-making contexts. This preliminary work identifies a critical research gap and proposes a methodology for comprehensive research.
+This repository contains a research framework for evaluating explainable AI (XAI) methods applied to **financial risk classification** from textual disclosures (SEC Item 1A risk factors). The project focuses on comparing explanation methods across **faithfulness**, **sparsity**, and **computational efficiency**, with an emphasis on regulatory and decision-making contexts. This preliminary work identifies a critical research gap and proposes a methodology for comprehensive research.
 
-This work is intended as a research instrument, not a production system.
+This work is intended as a research instrument, and NOT:
+- a production library/system.
+- proposing new XAI methods
+- Not optimizing benchmarks
 
+**Evaluation Criteria**
+- **Faithfulness**: Alignment between explanation and model behavior. Two metrics: *Sufficiency* of top k-words to make accurate predictions and *Comprehensiveness* which indicates if the removal of top-k words affects the prediction.
+- **Sparsity**: Number of features required to form an explanation
+- **Efficiency**: Computational cost and runtime
 
 **Current Status:** Prototype with quantitative evaluation on 250+ documents  
 **Future Direction:** Large-scale study with stakeholder validation (1,200+ documents, 20-30 practitioners)
@@ -294,29 +301,29 @@ FinRisk-XAI/
 ├── data/
 │   ├── .gitignore
 │   ├── item_1a.csv.dvc
-│   ├── risk_data.csv
+│   ├── risk_data.csv                       # data used to train classifiers
 │   ├── risk_paragraph_labeled.csv
 │   └── risk_paragraph_unlabeled.csv
 │
 ├── src/
-│   ├── models/
+│   ├── models/                            # baseline predictive models for controlled comparison
 │   │   ├── logistic_baseline.py
 │   │   └── xgboost_model.py 
-│   ├── explainers/
+│   ├── explainers/                        # existing XAI methods treated as experimental conditions
 │   │   ├── __init__.py
 │   │   ├── lime_explainer.py
 │   │   └── shap_explainer.py
-│   └── evaluation/
+│   └── evaluation/                        # contains quantitative metrics
 │       ├── __init__.py
 │       ├── faithfulness.py
 │       ├── efficiency.py
 │       ├── sparsity.py
 │       └── run_all_evaluations.py
 │
-├── notebooks/
+├── notebooks/                            # EDA mostly
 │   ├── 01_get_company_cik.ipynb
 │   ├── 02_eda_create_unlabeled.ipynb
-│   ├── 03_data_labelling.ipynb
+│   ├── 03_data_labelling.ipynb           # manually labelling data
 │   ├── 04_baseline_models.ipynb
 │   ├── 05_lime_explainer.ipynb
 │   └── risk_distribution.ipynb
@@ -328,9 +335,9 @@ FinRisk-XAI/
 │   │   ├── sparsity_comparison.png
 │   │   ├── tradeoff_analysis.png
 │   │   └── summary_table.png
-│   ├── evaluation/
-│   │   └── quantitative_results.json
-│   └── model_artifacts/
+│   ├── evaluation/                    
+│   │   └── quantitative_results.json      # scores from quantitative metrics. generated from evaluation/run_all_evaluations.py
+│   └── model_artifacts/                   # created from classifier training
 │       ├── logistic_baseline.pkl
 │       ├── logistic_metrics.json
 │       ├── xgboost.pkl
@@ -378,8 +385,7 @@ These limitations are intentional and define the scope of future work.
    - Counterfactual Explanations (example-based)
    - Anchors (rule-based)
 
-5. **Develop XAI-Eval Framework:**
-   - Automated method comparison
+5. **Develop Framework:**
    - Domain-specific templates
    - User validation protocols
 
